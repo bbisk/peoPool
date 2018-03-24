@@ -1,0 +1,31 @@
+<div class="d-flex p-3 justify-content-center ">
+    <div id="circle" class="bg-info"><i class="fas fa-users"></i></div>
+</div>
+
+<div class="list-group">
+    <a href="#drop_address" class="list-group-item list-group-item-action list-group-item-primary"
+       data-toggle="collapse"> <i class="far fa-address-book fa-lg"></i> Address book</a>
+    <div id="drop_address" class="collapse">
+        <a href="{% url 'search' %}" class="list-group-item list-group-item-action" id="dropmenu">
+            <i class="fas fa-search"></i> View and search
+        </a>
+        <a href="{% url 'add_contact_view' %}" class="list-group-item list-group-item-action" id="dropmenu">
+            <i class="fas fa-user-plus"></i> Add a contact
+        </a>
+    </div>
+
+    <a href="#drop_group" class="list-group-item list-group-item-action list-group-item-success" data-toggle="collapse">
+        <i class="far fa-user-circle fa-lg"></i> Groups
+    </a>
+    <div id="drop_group" class="collapse">
+        <a href="{% url 'groups_view' %}" class="list-group-item list-group-item-action" id="dropmenu">
+            <i class="fas fa-search"></i> View and search
+        </a>
+        <a href="{% url 'add_group_view' %}" class="list-group-item list-group-item-action" id="dropmenu">
+            <i class="fas fa-plus"></i> Add a group
+        </a>
+    </div>
+</div>
+
+
+

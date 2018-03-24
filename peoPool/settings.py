@@ -55,8 +55,7 @@ ROOT_URLCONF = 'peoPool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'peopool',
-        'USER' : 'postgres',
-        'PASSWORD' : 'coderslab',
+        'USER' : 'yourdetails',
+        'PASSWORD' : 'yourdetails',
         'HOST' : 'localhost',
     }
 }

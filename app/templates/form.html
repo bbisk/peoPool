@@ -1,0 +1,21 @@
+{% extends template_ex|default:'contact.html' %}
+{% block form %}
+    <div class="col">
+        {% if form %}
+            <form action="" method="POST" enctype="multipart/form-data">
+                {{ form.as_p }}
+                <div class="input-group-btn">
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Save</button>
+                            <button onclick="goBack()" class="btn btn-secondary btn-lg">Cancel</button>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+                {% csrf_token %}
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

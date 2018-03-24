@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="d-flex pt-5 justify-content-center">
+        <form action="{% url 'groups_view' %}" class="form-inline">
+            <input type="text" id="searchinput" name="query" class="form-control form-control-lg"
+                   placeholder="Search for group by name or it's member"
+                   value="{{ request.GET.query }}">
+            <button type="submit" class="btn-lg btn-dark">Search</button>
+        </form>
+    </div>
+    <div class="d-flex pt-5 justify-content-center">
+        {% if object_list %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Members</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    {% for obj in object_list %}
+                        <tr>
+                            <td><a href='{{ obj.get_absolute_url }}'>{{ obj }}</a></td>
+                            <td>{{ obj.contact_set.count }}</td>
+                            <td style="float: right">
+                                <a href="{% url 'edit_group_view' obj.id %}"><i class="fas fa-edit fa-lg"></i></a>
+                                <a href="{% url 'delete_group_view' obj.id %}"><i class="fas fa-trash-alt fa-lg"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+
+        {% else %}
+            <div class="alert alert-warning">
+                <strong>Sorry!</strong> There is no results matching your query. Try again.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

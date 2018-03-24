@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="d-flex pt-5 justify-content-center">
+        <div class="card" style="width: 70vw">
+            <div class="card-header">
+                {% if object %}
+                    <a href="#" data-toggle="dropdown"><i class="fas fa-plus fa-lg"></i></a>
+                    <div class="dropdown-menu">
+                        {% if not object.address %}
+                            <a class="dropdown-item" href="{% url 'add_address_view' object.id %}">Add new address</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'add_email' object.id %}">Add Email</a>
+                        <a class="dropdown-item" href="{% url 'add_phone' object.id %}">Add Phone Number</a>
+                    </div>
+                    <a href="{% url 'edit_contact_view' object.id %}"><i class="fas fa-edit fa-lg"></i></a>
+                    <a href="{% url 'delete_view' object.id %}"><i class="fas fa-trash-alt fa-lg"></i></a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% if object %}
+                        <div class="col">
+                            {% if object.avatar %}
+                                <img src="{{ path|default:"/media/" }}{{ object.avatar }}"
+                                     class="rounded-circle card-image-top float-right"
+                                     style="width: 8vw">
+                            {% endif %}
+                            <h4 class="card-title">{{ object }}
+                            </h4>
+                            {% if object.group.all %}
+                                <h6 class="font-italic">Belongs to:
+                                    {% for obj in object.group.all %}{{ obj.name }}{% endfor %}</h6>
+                            {% endif %}
+                            {% if object.description %}
+                                <h5 class="card-text">{{ object.description }}</h5>
+                            {% endif %}
+                            {% if object.address %}
+                                <h5 class="card-text">Address <a href="{% url 'edit_address_view' object.address_id %}"><i
+                                        class="fas fa-edit"></i></a></h5>
+                                <h6>{{ object.address.street }}
+                                    {{ object.address.building }}{% if object.address.flat %}/
+                                        {{ object.address.flat }}{% endif %}</h6>
+                                <h6>{{ object.address.postal_code }} {{ object.address.city }}, {{ object.address.country }}</h6>
+                            {% endif %}
+                            <h6>{{ object.address.country }}</h6>
+                            {% if object.phonenumber_set.all %}
+                                <h5>Phones:</h5>
+                                <ul>{% for obj in object.phonenumber_set.all %}
+                                    <li>{{ obj.get_phone_type_display }}: {{ obj }}
+                                        <a href="{% url 'modify_phone' obj.id %}"><i class="fas fa-edit"></i></a>
+                                        <a href="{% url 'delete_phone' obj.id %}"><i class="fas fa-trash-alt"></i></a>
+                                    </li>{% endfor %}</ul>
+                            {% endif %}
+                            {% if object.email_set.all %}
+                                <h5>Emails:</h5>
+                                <ul>{% for obj in object.email_set.all %}
+                                    <li>{{ obj.get_email_type_display }}: {{ obj }}
+                                        <a href="{% url 'modify_email' obj.id %}"><i class="fas fa-edit"></i></a>
+                                        <a href="{% url 'delete_email' obj.id %}"><i class="fas fa-trash-alt"></i></a>
+                                    </li>{% endfor %}</ul>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% block form %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

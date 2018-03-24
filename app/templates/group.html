@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="d-flex pt-5 justify-content-center">
+        <div class="card" style="width: 70vw">
+            <div class="card-header">
+                {% if object %}
+                    <a href="{% url 'add_group_view' %}"><i class="fas fa-plus fa-lg"></i></a>
+                    <a href="{% url 'edit_group_view' object.id %}"><i class="fas fa-edit fa-lg"></i></a>
+                    <a href="{% url 'delete_group_view' object.id %}"><i class="fas fa-trash-alt fa-lg"></i></a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% if object %}
+                        <div class="col">
+                            <h4 class="card-title">{{ object }}</h4>
+                            <h5 class="card-text">{{ object.group_description }}</h5>
+                            {% if object.contact_set.all %}
+                            <ul>
+                            {% for obj in object.contact_set.all %}
+                                <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a>
+                                    <a href="{% url 'edit_contact_view' obj.id %}"><i class="fas fa-edit"></i></a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            {% else %}
+                                This group has no members yet.
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% block form %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
